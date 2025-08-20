@@ -334,10 +334,18 @@ st.set_page_config(page_title="Loan Default – XGBoost", page_icon="🤖", layo
 st.title("XGBoost – Loan Default Predictor")
 
 # ---------- Load artifacts ----------
+# Robust loader (joblib if available, else pickle)
+try:
+    import joblib as _joblib
+    def load_model(p): return _joblib.load(p)
+except Exception:
+    import pickle
+    def load_model(p): return pickle.load(open(p, "rb"))
+
 @st.cache_resource(show_spinner=False)
 def load_pipeline(path="models/xgb_pipeline.pkl"):
     # This is your saved XGB pipeline: Pipeline(preprocess, model)
-    return joblib.load(path)
+    return load_model(path)
 
 @st.cache_resource(show_spinner=False)
 def load_background(path="models/bg_sample.parquet"):
@@ -518,25 +526,10 @@ with tab_explain:
         )
         st.pyplot(lime_exp.as_pyplot_figure(), clear_figure=True)
 
-        
-        # st.subheader("LIME — Local (top 10)")
-        # lime_explainer = LimeTabularExplainer(
-        #     training_data=bg[ALL].values,          # RAW background
-        #     feature_names=ALL,
-        #     class_names=["Fully Paid","Default"],
-        #     mode='classification',
-        #     discretize_continuous=True
-        # )
-        # lime_exp = lime_explainer.explain_instance(
-        #     data_row=X_user.iloc[0].values,
-        #     predict_fn=lambda X: pipe.predict_proba(pd.DataFrame(X, columns=ALL)),
-        #     num_features=10
-        # )
-        # st.pyplot(lime_exp.as_pyplot_figure(), clear_figure=True)
-
         st.info(
             "Reading the charts:\n"
             "• SHAP beeswarm ranks features by global impact; right = higher default risk, left = lower.\n"
             "• SHAP waterfall explains this borrower: red bars raise risk, blue bars lower it.\n"
             "• LIME shows top local rules that support the decision."
         )
+
