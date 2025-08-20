@@ -1,0 +1,23 @@
+{
+  "numeric": [
+    "loan_amnt",
+    "term_months",
+    "int_rate",
+    "installment",
+    "annual_inc",
+    "dti",
+    "open_acc",
+    "pub_rec",
+    "inq_last_6mths",
+    "revol_bal",
+    "revol_util",
+    "total_acc",
+    "emp_length_yrs"
+  ],
+  "categorical": [
+    "home_ownership",
+    "verification_status",
+    "purpose",
+    "application_type"
+  ]
+}
