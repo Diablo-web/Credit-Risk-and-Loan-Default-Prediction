@@ -330,7 +330,7 @@ from lime.lime_tabular import LimeTabularExplainer
 import matplotlib.pyplot as plt
 
 
-st.set_page_config(page_title="Loan Default – XGBoos", page_icon="", layout="wide")
+st.set_page_config(page_title="Loan Default – XGBoost", page_icon="", layout="wide")
 st.title("Loan default Prediction")
 
 # ---------- Load artifacts ----------
@@ -374,10 +374,10 @@ CATEG  = ["home_ownership","verification_status","purpose","application_type"]
 ALL    = NUMERIC + CATEG
 
 # ---------- Sidebar: threshold ----------
-thr = st.sidebar.slider("Decision threshold (≥ → Default)", 0.05, 0.95, float(thr), 0.01)
+# thr = st.sidebar.slider("Decision threshold (≥ → Default)", 0.05, 0.95, float(thr), 0.01)
 
 # ---------- Input form ----------
-st.subheader("Borrower & Loan Details")
+st.subheader("Enter the Loan Details")
 c1, c2 = st.columns(2)
 with c1:
     loan_amnt   = st.number_input("Loan amount (USD)", 500, 200_000, 6_000, step=100)
@@ -539,6 +539,7 @@ with tab_explain:
             "• SHAP waterfall explains this borrower: red bars raise risk, blue bars lower it.\n"
             "• LIME shows top local rules that support the decision."
         )
+
 
 
 
