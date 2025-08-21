@@ -330,8 +330,8 @@ from lime.lime_tabular import LimeTabularExplainer
 import matplotlib.pyplot as plt
 
 
-st.set_page_config(page_title="Loan Default – XGBoost", page_icon="🤖", layout="wide")
-st.title("XGBoost – Loan Default Predictor")
+st.set_page_config(page_title="Loan Default – XGBoos", page_icon="", layout="wide")
+st.title("Loan default Prediction")
 
 # ---------- Load artifacts ----------
 # Robust loader (joblib if available, else pickle)
@@ -415,7 +415,7 @@ X_user = pd.DataFrame([{
     "verification_status": verification_status, "purpose": purpose, "application_type": application_type
 }])[ALL]
 
-tab_pred, tab_explain = st.tabs(["🔮 Predict", " Explain (SHAP & LIME) "])
+tab_pred, tab_explain = st.tabs(["🔮 Check", " Explain (SHAP & LIME) "])
 
 # ---------- Predict ----------
 with tab_pred:
@@ -424,7 +424,7 @@ with tab_pred:
         label = int(proba >= thr)
 
          #Only Yes/No output
-        decision = "✅ The loan can be sanctioned" if label == 0 else "❌ Loan cannot be sanctioned"
+        decision = "The loan can be sanctioned" if label == 0 else "Loan cannot be sanctioned"
         st.metric("Decision", decision)
 
         with st.expander("Show inputs"):
@@ -539,5 +539,6 @@ with tab_explain:
             "• SHAP waterfall explains this borrower: red bars raise risk, blue bars lower it.\n"
             "• LIME shows top local rules that support the decision."
         )
+
 
 
