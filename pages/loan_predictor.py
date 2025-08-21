@@ -415,20 +415,64 @@ X_user = pd.DataFrame([{
     "verification_status": verification_status, "purpose": purpose, "application_type": application_type
 }])[ALL]
 
+
+den = max(annual_inc, 1e-6)
+loan_to_income  = loan_amnt / den
+revol_to_income = revol_bal / den
+POLICY_FAIL = (loan_to_income >= 0.50) or (revol_to_income >= 0.30)
+
+if st.button("Predict"):
+    try:
+        if POLICY_FAIL:
+            st.error("❌ It cannot pay the loan (policy rule failed: "
+                     f"{'Loan≥50% of income' if loan_to_income>=0.5 else ''}"
+                     f"{' ; ' if (loan_to_income>=0.5 and revol_to_income>=0.3) else ''}"
+                     f"{'Revolving≥30% of income' if revol_to_income>=0.3 else ''})")
+        else:
+            proba_default = float(pipe.predict_proba(X_user)[:, 1][0])
+            pred_label = int(proba_default >= thr)
+            if pred_label == 1:
+                st.error("❌ It cannot pay the loan")
+            else:
+                st.success("✅ It can pay the loan")
+
+
 tab_pred, tab_explain = st.tabs(["🔮 Check", " Explain (SHAP & LIME) "])
 
-# ---------- Predict ----------
 with tab_pred:
     if st.button("Predict with XGBoost"):
-        proba = float(pipe.predict_proba(X_user)[0,1])
-        label = int(proba >= thr)
+        if POLICY_FAIL:
+            st.error("❌ It cannot pay the loan (policy rule failed: " + "; ".join(policy_reasons) + ")")
+        else:
+            proba = float(pipe.predict_proba(X_user)[0, 1])   # PD = P(default)
+            label = int(proba >= thr)                         # 1=default, 0=fully paid
 
-         #Only Yes/No output
-        decision = "The loan can be sanctioned" if label == 0 else "Loan cannot be sanctioned"
-        st.metric("Decision", decision)
+            if label == 0:
+                st.success("The loan can be sanctioned")
+            else:
+                st.error("Loan cannot be sanctioned")
 
-        with st.expander("Show inputs"):
-            st.write(X_user)
+        with st.expander("Show inputs & checks"):
+            st.write(X_user.assign(
+                loan_to_income_pct = round(loan_to_income*100, 2),
+                revol_to_income_pct= round(revol_to_income*100, 2),
+                policy_failed = POLICY_FAIL,
+                policy_reasons = ", ".join(policy_reasons) if POLICY_FAIL else "None"
+            ))
+
+
+# # ---------- Predict ----------
+# with tab_pred:
+#     if st.button("Predict with XGBoost"):
+#         proba = float(pipe.predict_proba(X_user)[0,1])
+#         label = int(proba >= thr)
+
+#          #Only Yes/No output
+#         decision = "The loan can be sanctioned" if label == 0 else "Loan cannot be sanctioned"
+#         st.metric("Decision", decision)
+
+#         with st.expander("Show inputs"):
+#             st.write(X_user)
 
         # st.metric("Default probability (PD)", f"{proba:.2%}")
         # st.metric("Decision (thr={:.2f})".format(thr), "Default" if label==1 else "Fully Paid")
@@ -539,6 +583,7 @@ with tab_explain:
             "• SHAP waterfall explains this borrower: red bars raise risk, blue bars lower it.\n"
             "• LIME shows top local rules that support the decision."
         )
+
 
 
 
