@@ -415,7 +415,7 @@ X_user = pd.DataFrame([{
     "verification_status": verification_status, "purpose": purpose, "application_type": application_type
 }])[ALL]
 
-tab_pred, tab_explain = st.tabs(["🔮 Predict", "🧠 Explain (SHAP & LIME)"])
+tab_pred, tab_explain = st.tabs(["🔮 Predict", " Explain (SHAP & LIME) "])
 
 # ---------- Predict ----------
 with tab_pred:
@@ -423,10 +423,17 @@ with tab_pred:
         proba = float(pipe.predict_proba(X_user)[0,1])
         label = int(proba >= thr)
 
-        st.metric("Default probability (PD)", f"{proba:.2%}")
-        st.metric("Decision (thr={:.2f})".format(thr), "Default" if label==1 else "Fully Paid")
+         #Only Yes/No output
+        decision = "✅ The loan can be sanctioned" if label == 0 else "❌ Loan cannot be sanctioned"
+        st.metric("Decision", decision)
+
         with st.expander("Show inputs"):
             st.write(X_user)
+
+        # st.metric("Default probability (PD)", f"{proba:.2%}")
+        # st.metric("Decision (thr={:.2f})".format(thr), "Default" if label==1 else "Fully Paid")
+        # with st.expander("Show inputs"):
+        #     st.write(X_user)
 
 
 
@@ -532,4 +539,5 @@ with tab_explain:
             "• SHAP waterfall explains this borrower: red bars raise risk, blue bars lower it.\n"
             "• LIME shows top local rules that support the decision."
         )
+
 
