@@ -1,0 +1,184 @@
+/* 
+/* Import Manrope from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+
+/* Apply globally */
+html, body, [class*="css"]  {
+  font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* ========== FONT (Manrope) ========== */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+
+
+
+/* html, body, [class*="css"]{
+  font-family:'Manrope', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif !important;
+  color:var(--ink);
+  background:var(--bg);
+} */
+
+/* Layout helpers */
+/* .container{max-width:1180px;margin:0 auto;padding:0 1rem}
+.section{padding:2.4rem 0}
+.grid-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:1.6rem;align-items:stretch}
+@media (max-width: 980px){.grid-hero{grid-template-columns:1fr}} */
+
+/* .brand{background:var(--brand);color:#fff}
+.display{font-size:2.8rem;line-height:1.05;margin:.25rem 0 .6rem;font-weight:800}
+.sub{color:#dbeafe;font-weight:600;margin:.2rem 0 1.2rem}
+.eyebrow{display:inline-block;background:#ffffff1a;border:1px solid #ffffff33;border-radius:999px;padding:.2rem .6rem;font-size:.85rem;font-weight:700} */
+
+/* Card */
+/* .card{background:var(--card);border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.10)}
+.card.quote{padding:1.1rem 1.2rem 1rem}
+.card-title{margin:.2rem 0 1rem;font-size:1.25rem;font-weight:800}
+.divider{height:6px;background:#fff;border-radius:99px;width:56px;margin:.1rem 0 .8rem} */
+
+/* Input polish */
+/* .currency{margin-top:1.9rem;font-weight:800;color:var(--ink)}
+.stNumberInput input,
+.stSelectbox > div > div,
+.stSlider > div{border-radius:14px !important;border:1px solid #e2e8f0 !important}
+.stNumberInput:focus-within,
+.stSelectbox:focus-within{box-shadow:0 0 0 4px var(--ring)} */
+
+/* Button (Streamlit primary) */
+/* .stButton>button, .btn{
+  background:var(--brand)!important;color:#fff!important;border:none!important;border-radius:14px!important;
+  padding:.85rem 1rem!important;font-weight:800!important;box-shadow:0 12px 28px rgba(12,22,154,.35)!important
+}
+.stButton>button:hover{background:var(--brand-dark)!important} */
+
+/* Hero illustration */
+/* .illus{position:relative;border-radius:18px;overflow:hidden;min-height:400px;background:linear-gradient(120deg,#101aa8 0%, #0c169a 60%, #08106b 100%)}
+.blob{position:absolute;right:-80px;top:-60px;width:420px;height:420px;background:#ffffff22;border-radius:50%;filter:blur(8px)}
+.hero-svg{position:absolute;inset:0;margin:auto;width:60%;height:60%;fill:#fff;opacity:.95} */
+
+/* Features */
+/* .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+@media (max-width: 980px){.grid-3{grid-template-columns:1fr}}
+.feature{display:flex;gap:.8rem;align-items:flex-start;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:.9rem 1rem}
+.icon-wrap{width:42px;height:42px;border-radius:12px;background:#eef2ff;display:grid;place-items:center;border:1px solid #c7d2fe}
+.icon{width:24px;height:24px;fill:#3b82f6} */
+
+/* Footer */
+/* .footer{margin-top:2rem;background:#fff;border-top:1px solid #e2e8f0}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;padding:1.2rem 0}
+@media (max-width: 980px){.foot-grid{grid-template-columns:1fr}}
+.footer h5{margin:.1rem 0 .4rem}
+.footer p, .footer a{color:#475569}
+.foot-bottom{text-align:center;padding:.7rem;color:#64748b;border-top:1px dashed #e2e8f0} */
+
+
+
+/* --- Hero height control --- */
+/* :root { --hero-h: 400px; }              
+@media (max-width: 500px){ :root{ --hero-h: 380px; } }  
+@media (max-width: 500px){ :root{ --hero-h: 260px; } }  
+
+.hero-frame{
+  position:relative;
+  height: var(--hero-h);
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(120deg,#101aa8 0%, #0c169a 60%, #08106b 100%);
+} */
+
+/* Make the image/SVG perfectly fit the frame without distortion */
+/* .hero-frame img, .hero-frame svg{
+  width:80%;
+  height:80%;
+  object-fit: contain;  
+  display:block;
+}  */
+
+
+/* --- Hero frame (fixed height) + 80% SVG --- */
+
+/* hero frame with NO background */
+
+/* Pull page content upward (fix big top gap) *//* put this at the end of assets/css/styles.css */
+
+
+/* === Global FONT setup (Manrope) === */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --font-ui: 'Manrope', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+             Cantarell, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Apply everywhere (Streamlit containers + widgets) */
+html, body, .stApp, [data-testid="stAppViewContainer"],
+[data-testid="stSidebar"], [data-testid="stToolbar"] * ,
+[data-testid="stMarkdownContainer"], [class*="css"] {
+  font-family: var(--font-ui) !important;
+}
+
+/* Inputs/selects/buttons also inherit the font */
+input, select, textarea, button,
+.stTextInput input, .stNumberInput input,
+.stSelectbox > div > div, .stDateInput input,
+.stSlider, .stButton > button, .stDownloadButton > button {
+  font-family: var(--font-ui) !important;
+}
+
+/* Headings feel like your screenshot */
+h1, h2, h3 { font-family: var(--font-ui) !important; font-weight: 800; letter-spacing: .2px; }
+h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.05; }
+h2 { font-size: clamp(22px, 3.5vw, 32px); line-height: 1.1; }
+h3 { font-size: clamp(18px, 2.8vw, 24px); line-height: 1.15; }
+
+/* Form labels & captions */
+label, .stCaption, .st-emotion-cache-10trblm, .stMarkdown p {
+  font-weight: 600;
+}
+
+:root{
+  --hero-mt: -120px;   /* change this to the spacing you want */
+}
+
+
+/* wrapper fills 80% of the frame and is pushed down by margin-top */
+.hero-svg-wrap{
+  width: 80%;
+  height: 70%;
+  margin-top: var(--hero-mt);
+  display:flex;
+  align-items:center;     /* vertical */
+  justify-content:center; /* horizontal */
+ 
+}
+
+/* SVG image scales correctly */
+.hero-svg-wrap img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  display:flex;
+  align-items:center;     /* vertical */
+  justify-content:center; /* horizontal */
+}
+
+/* :root { --hero-h: 60vh; }                    */
+/* .hero-frame{
+  position:relative;
+  height: var(--hero-h);
+  border-radius:18px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(120deg,#101aa8 0%, #0c169a 60%, #08106b 100%);
+}
+.hero-svg-wrap{ width:80%; height:80%; display:flex; align-items:center; justify-content:center; }
+.hero-svg-wrap img{ width:80%; height:80%; object-fit:contain; display:block; } */
+
+/* Simple section polish */
+.section{ padding:0.25rem 0; }
+.mini-card{ background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:1rem; }
+.pill{ display:inline-block; border-radius:999px; padding:.25rem .6rem; font-weight:800; }
+.pill.ok{ background:#16a34a20; color:#166534; border:1px solid #16a34a55; }
+.pill.no{ background:#dc262620; color:#991b1b; border:1px solid #dc262655; }
