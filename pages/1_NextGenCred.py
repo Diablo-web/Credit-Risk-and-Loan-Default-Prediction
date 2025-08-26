@@ -130,7 +130,15 @@ with c2:
     revol_bal      = st.number_input("Revolving balance", 0.0, 5_000_000.0, 8_000.0, step=100.0)
     revol_util     = st.number_input("Revolving util (%)", 0.0, 300.0, 35.0, step=0.1)
     total_acc      = st.number_input("Total credit lines", 0, 300, 30)
-emp_length_yrs = st.slider("Employment length (years)", 0, 10, 5)
+emp_label = st.selectbox(
+        "Employment length (years)",
+        ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"],
+        index=5  # default value = "5"
+    )
+
+    # Map to numeric for model
+emp_length_yrs = 10 if emp_label == "10+" else int(emp_label)
+# removed slicer emp_length_yrs = st.slider("Employment length (years)", 0, 10, 5)
 
 c3, c4 = st.columns(2)
 with c3:
@@ -186,9 +194,9 @@ with tab_pred:
 
             # final verdict (binary)
             if pd_default >= THRESHOLD:
-                st.error("Predicted: Default risk high — Likely decline", icon="⚠️")
+                st.error("Predicted: Default risk high — Decline", icon="⚠️")
             else:
-                st.success("Predicted: Default risk acceptable — Likely approve")
+                st.success("Predicted: Default risk acceptable — Approve")
 
             # show only estimated credit score (300–850 style)
             score_850 = int(np.clip(round(850 - pd_default * 550), 300, 850))
@@ -304,5 +312,6 @@ with tab_explain:
             "• SHAP waterfall explains this borrower: red bars raise risk, blue bars lower it.\n"
             "• LIME shows top local rules that support the decision."
         )
+
 
 
