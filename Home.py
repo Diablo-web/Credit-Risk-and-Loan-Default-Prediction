@@ -145,7 +145,7 @@ if st.button("Check now", type="primary", key="min_check_btn"):
         st.error("Not eligible (indicative)")
         st.caption("Reason: " + " and ".join(reasons) + ".")
     else:
-        st.success("✅ Likely eligible (indicative)")
+        st.success("Eligible (indicative)")
         st.caption("Within typical limits lenders look for.")
 
 
@@ -184,6 +184,7 @@ if st.session_state.get("animate_hero", True) and SVG_FILES:
         st.rerun()              # Streamlit ≥ 1.30
     except Exception:
         st.experimental_rerun() # older versions
+
 
 
 
